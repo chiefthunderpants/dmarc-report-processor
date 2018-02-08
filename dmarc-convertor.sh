@@ -12,6 +12,10 @@
 # 3. Convert dmarc xml files to line oriented format for splunk
 #
 
+# Data retention time
+RETENTION=5
+#
+
 ROOT='/usr/local/dmarc-report-processor'
 DMARC_ROOT="${ROOT}/var"
 ATTACH="${DMARC_ROOT}/attach_raw"
@@ -164,9 +168,9 @@ rm "${DMARC_SPLUNK}/latest" 2> /dev/null
 ln -s "${DMARC_SPLUNK}/${ydate}" "${DMARC_SPLUNK}/latest"
 
 #remove folders that are more than 5 days old
-find "${ATTACH}/${ydate}" -type d -ctime +5 2>/dev/null | xargs rm -rf
-find "${XML}/${ydate}" -type d -ctime +5 2>/dev/null | xargs rm -rf
-find "${DMARC_SPLUNK}/${ydate}" -type d -ctime +5 2>/dev/null | xargs rm -rf
-find "${ROOT}/logs/dmarc-report-processor" -type d -ctime +5 2>/dev/null | xargs rm -rf
+find "${ATTACH}/${ydate}" -type d -ctime +${RETENSION} 2>/dev/null | xargs rm -rf
+find "${XML}/${ydate}" -type d -ctime +${RETENSION} 2>/dev/null | xargs rm -rf
+find "${DMARC_SPLUNK}/${ydate}" -type d -ctime +${RETENSION} 2>/dev/null | xargs rm -rf
+find "${ROOT}/logs/dmarc-report-processor" -type d -ctime +${RETENSION} 2>/dev/null | xargs rm -rf
 
 
